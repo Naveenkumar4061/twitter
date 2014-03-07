@@ -1,0 +1,12 @@
+<h3>Following</h3>
+<table>
+	<thead>
+		<td>Email</td>
+	</thead>
+	<% @following.each do |u| %>
+		<tr>
+			<td><%= u.email %></td>
+			<td><%= link_to 'Unfollow', "/follows/#{u.id}/unfollow" %></td>
+		</tr>
+	<% end %>
+</table>	

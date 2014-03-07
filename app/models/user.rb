@@ -4,7 +4,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  # attr_accessible :title, :body
+
+  has_many :tweets
+	has_many :follows, :foreign_key => 'user_id'
+	has_many :following, :class_name => 'Follow', :foreign_key => 'follow_id'
+
+	def relate(user)
+		self.follows.map(&:follow_id).include?(user.id) ? 'follow' : 'unfollow'
+	end
 end

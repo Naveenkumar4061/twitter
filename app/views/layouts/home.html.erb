@@ -47,26 +47,50 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="/">Twitter</a>
-          <div class="pull-right sign-out">
-            <% if user_signed_in? %>
-              Signed in as <%= current_user.email %>. Not you?
-              <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-            <% else %>
-              <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
-            <% end %>
-          </div>
+          <div class="container nav-collapse">
+
+            <div class="pull-right sign-out">
+              <% if user_signed_in? %>
+                Signed in as <%= current_user.email %>. Not you?
+                <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+              <% else %>
+                <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+              <% end %>
+            </div>
+          </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
 
     <div class="container home">
-        <div class="row">
-          <div class="span12">
-            <%= bootstrap_flash %>
-            <%= yield %>
-          </div>
+      <div class="row">
+        <div class="left-blocks span4">
+          <div class="well navbar">
+            
+            <ul class="nav tweets-dash">
+              <li><%= link_to "Tweets(#{current_user.tweets.count})", "/"  %></li>
+              <li><%= link_to "Following(#{current_user.follows.count})", "/following"  %></li>
+              <li><%= link_to "Followers(#{current_user.following.count})", "/followers"  %></li>
+            </ul>
+          </div><!--/.well -->
           
-        </div><!--/row-->
+          <div class="sidebar-nav">
+            <h3>Who To Follow</h3>
+            <ul class="nav nav-list">
+              <% @users.each do |u| %>
+                <li>
+                  <div class="email-div pull-left"><%= u.email %></div><div class="follow-div pull-right"><%= link_to 'Follow', "/follows/#{u.id}/follow" %></div></li>
+              <% end %>
+            </ul>
+          </div><!--/.well -->
+
+        </div>
+        <div class="right-blocks span8">
+          <%= bootstrap_flash %>
+          <%= yield %>
+        </div>
+      </div>
+      
 
       <footer>
         <p>&copy; Company 2014</p>

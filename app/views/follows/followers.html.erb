@@ -1,0 +1,12 @@
+<h3>Followers</h3>
+<table>
+	<thead>
+		<td>Email</td>
+	</thead>
+	<% @followers.each do |u| %>
+		<tr>
+			<td><%= u.email %></td>
+			<td><%= link_to "#{current_user.relate(u)}".capitalize, "/follows/#{u.id}/#{current_user.relate(u)}" %></td>
+		</tr>
+	<% end %>
+</table>	

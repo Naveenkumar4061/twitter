@@ -1,1 +1,24 @@
-Welcome
+<%= form_for :tweet, :url => tweet_index_path do |t| %>
+  <%= t.text_area :text, :placeholder => 'Compose', :cols => 20, :rows => 2 %>
+  <%= t.submit "Tweet" %>
+<% end %>
+<div class="tweet-box">
+  <h4>Tweets</h4>
+	<ol class="tweets">
+		<% @tweets.each do |t| %>
+			<li>
+				<div class="tweet-content">
+			    <div class="userid"><%= t.user.email %> - <%= t.created_at.strftime('%d-%m-%Y %H:%M:%S') %></div>
+					<p class="tweet-text"><%= t.text %></p>
+					<div class="action-links">
+					  <ul>
+							<li><%= link_to 'Reply', '#' %></li>
+							<li><%= link_to 'Delete', '#' %></li>
+							<li><%= link_to 'Retweet', '#' %></li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		<% end %>
+	</ol>
+</div>
